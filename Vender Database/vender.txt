@@ -1,0 +1,213 @@
+------------------------------------------------------------------------------------------------------
+                                                1st ans:
+-------------------------------------------------------------------------------------------------------	
+
+create table item
+(
+	icode int primary key,
+	idesc varchar(20),
+	unit_price number(8,2),
+	eqq int,
+	rol int,
+	soh int,
+	boq int
+);
+
+create table vender
+(
+	vnum int primary key,
+	vname varchar(30),
+	vaddress varchar(30)
+);
+
+create table section
+(
+	scode int primary key,
+	sname varchar(30)
+);
+
+create table cheque
+(
+	cnum int primary key,
+	cdate date,
+	camount int
+);
+
+create table voucher
+(
+	vouchnum int primary key,
+	vouchdate date,
+	vennum int,
+	chqnum int,
+	constraint Fk_vennum
+	foreign key(vennum) references vender(vnum),
+	constraint FK_chqnum
+	foreign key(chqnum) references cheque(cnum)
+);
+
+create table indent
+(
+	inum int primary key,
+	qtdmd int,
+	qtissued int,
+	seccode int,
+	itemcode int,
+	constraint FK_seccode
+	foreign key(seccode) references section(scode),
+	constraint Fk_itemcode
+	foreign key(itemcode) references item(icode)
+);
+
+
+create table orders
+(
+	onum int primary key,
+	odate date,
+	voucher_num int,
+	vender_num int,
+	due_date date,
+	constraint FK_voucher
+	foreign key(voucher_num) references voucher(vouchnum) on delete set null,
+	constraint FK_vender
+	foreign key(vender_num) references vender(vnum)
+);
+
+create table ordering
+(
+	ordernum int,
+	itemcode int,
+	quantity int,
+	constraint FK_icode
+	foreign key(itemcode) references item(icode)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------
+                                                2nd ans:
+-------------------------------------------------------------------------------------------------------												
+#item_table	
+insert into item values('01','book','25.00',75,15,50,12);
+insert into item values('02','calculator','650.00',80,50,12,21);
+insert into item values('03','record','60.00',23,72,40,31);
+insert into item values('04','pen','5.00',44,32,93,80);
+insert into item values('05','bag','1000.00',99,32,78,32);
+
+#vender_table
+insert into vender values('21','John','Las Vegas');
+insert into vender values('22','Siri','Canyon road');
+insert into vender values('23','Tom','Chicao');
+insert into vender values('24','Messi','Miami');
+insert into vender values('25','Joy','Oxford Street');
+	
+#section_table
+insert into section values('15','shop1');
+insert into section values('16','shop2');
+insert into section values('17','shop3');
+insert into section values('18','shop4');
+insert into section values('19','shop5');
+
+#cheque_table
+insert into cheque values(1010,'18-DEC-2018',24567.00);	
+insert into cheque values(1781,'21-JAN-2019',12137.00);	
+insert into cheque values(1562,'13-DEC-2016',34575.00);	
+insert into cheque values(1231,'19-MAR-2017',53461.00);
+insert into cheque values(1120,'17-NOV-2017',43576.00);	
+
+#voucher_table
+insert into voucher values(34,'18-DEC-2018',21,1781);
+insert into voucher values(56,'17-NOV-2017',24,1562);
+insert into voucher values(12,'21-JAN-2019',23,1781);
+insert into voucher values(98,'13-DEC-2016',22,1231);
+insert into voucher values(87,'19-MAR-2017',25,1120);
+	
+#indent_table	
+insert into indent values(45,13,112,15,1);
+insert into indent values(32,78,162,17,5);
+insert into indent values(67,23,171,16,4);
+insert into indent values(12,56,435,18,3);
+insert into indent values(87,12,557,19,2);
+
+#order_table
+insert into orders values('32','12-MAR-2019','34','21','18-DEC-2018');
+insert into orders values('42','19-SEP-2012','56','21','17-NOV-2017');
+insert into orders values('66','20-JUN-2015','12','21','21-JAN-2019');
+insert into orders values('78','31-MAY-2016','98','21','13-DEC-2016');
+insert into orders values('67','06-APR-2012','87','21','19-MAR-2017');
+
+#ordering_table
+insert into ordering values('32','01','112');
+insert into ordering values('42','02','557');
+insert into ordering values('66','03','435');
+insert into ordering values('78','04','171');
+insert into ordering values('67','05','220');
+
+------------------------------------------------------------------------------------------------------
+                                                3rd ans:
+-------------------------------------------------------------------------------------------------------	
+
+update item set unit_price = unit_price * 1.01;
+
+------------------------------------------------------------------------------------------------------
+                                                4th ans:
+-------------------------------------------------------------------------------------------------------	
+alter table item add constraint ck_unit_price
+check(unit_price > 0);
+
+------------------------------------------------------------------------------------------------------
+                                                5th ans:
+-------------------------------------------------------------------------------------------------------	
+delete from voucher
+where vouchnum=12;
+
+------------------------------------------------------------------------------------------------------
+                                                6th ans:
+-------------------------------------------------------------------------------------------------------	
+select icode,idesc,count(*)
+from item,ordering
+where icode=itemcode
+group by icode,idesc
+having count(*)>2
+order by icode;
+
+------------------------------------------------------------------------------------------------------
+                                                7th ans:
+-------------------------------------------------------------------------------------------------------	
+select max(camount), min(camount) from cheque;
+
+select count(*) from cheque;
+
+select sum(camount) from cheque;
+
+------------------------------------------------------------------------------------------------------
+                                                8th ans:
+-------------------------------------------------------------------------------------------------------	
+select * 
+from orders
+where odate between '01-JAN-2000' and '31-JAN-2006'
+
+------------------------------------------------------------------------------------------------------
+                                                9th ans:
+-------------------------------------------------------------------------------------------------------	
+#Left Outer Join
+
+------------------------------------------------------------------------------------------------------
+                                                16th ans:
+-------------------------------------------------------------------------------------------------------	
+select o.onum, o.odate, o.due_date, v.vnum, v.vname,
+( (select SYSDATE from DUAL) - o.due_date ) AS delay
+From orders o, vender v
+Where v.vnum = o.vender_num ;

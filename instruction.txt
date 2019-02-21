@@ -1,0 +1,8 @@
+connect system;
+
+create user user_name identified by password;
+grant connect, resource, dba to user_name;
+
+grant unlimited tablespace to user_name;
+
+connect user_name;

@@ -1,0 +1,152 @@
+create table employee
+(
+	ssn int PRIMARY KEY,
+	name varchar(20),
+	dob  date,
+	address varchar(30),
+	salary int,
+	Dmgrssn int,
+	Deptnum int,
+	gender char,
+);
+
+
+create table department
+(
+	dnum int PRIMARY KEY,
+	dname varchar(20),
+	dmgrssn int,
+	mgrstdate date
+);	
+
+
+create table dept_location
+(
+	dnum int,
+	dlocation varchar(20),
+	primary key(dnum,dlocation),
+	constraint FK_dnum
+	foreign key(dnum) references department(dnum)
+);	
+
+
+create table project
+(
+	pnum int PRIMARY KEY,
+	pname varchar(20),
+	plocation varchar(20)
+);
+
+
+create table works_on
+(
+	essn int,
+	pnum int,
+	hours varchar(10),
+	constraint FK_essn
+	foreign key(essn) references employee(ssn),
+	constraint FK_pnum
+	foreign key(pnum) references project(pnum)
+);
+
+
+create table emp_dependents
+(
+	essn int,
+	dependent_name varchar(20),
+	rship varchar(20),
+	gender char,
+	constraint FK_ssn
+	foreign key(essn) references employee(ssn)
+);
+
+
+//EMPLOYEE TABLE
+
+insert into employee values(123456789,'John Smith','01-SEP-1965','Houston',30000,333445555,5,'M');
+insert into employee values(333445555,'Franklin Wong','08-DEC-1955','Houston',40000,888665555,5,'M');
+insert into employee values(999887777,'Alicia Zeyala','19-JAN-1968','Spring',25000,987654321,4,'F');
+insert into employee values(987654321,'Jennifer Wallace','20-JUN-1941','Bellaire',43000,888665555,4,'F');
+insert into employee values(666884444,'Ramesh Narayan','15-SEP-1962','Humble',38000,333445555,5,'M');
+insert into employee values(453453453,'Joyce English','31-JUL-1972','Houston',25000,333445555,5,'F');
+insert into employee values(987987987,'Ahmad Jabbar','29-MAR-1969','Houston',25000,987654321,4,'M');
+insert into employee values(888665555,'James Borg','10-NOV-1937','Houston',55000,NULL,1,'M');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Department Table
+
+insert into department values('5','Research','333445555','22-may-1988');
+insert into department values('4','Administration','987654321','01-jan-1995');
+insert into department values('1','Headquarters','888665555','19-jun-1981');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//DEPT_LOCATION
+
+insert into dept_location values(4,'Stafford');
+insert into dept_location values(5,'Bellaire');
+insert into dept_location values(5,'Sugarland');
+insert into dept_location values(5,'Houston');
+insert into dept_location values(1,'Houston');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Works_On Table
+
+insert into works_on values(123456789,1,32.5);
+insert into works_on values(123456789,2,7.5);
+insert into works_on values(666884444,3,40.0);
+insert into works_on values(453453453,1,20.0);
+insert into works_on values(453453453,2,20.0);
+insert into works_on values(333445555,2,10.0);
+insert into works_on values(333445555,3,10.0);
+insert into works_on values(333445555,10,10.0);
+insert into works_on values(333445555,20,10.0);
+insert into works_on values(999887777,30,30.0);
+insert into works_on values(999887777,10,10.0);
+insert into works_on values(999887777,10,35.0);
+insert into works_on values(999887777,30,5.0);
+insert into works_on values(987654321,30,20.0);
+insert into works_on values(987654321,20,15.0);
+insert into works_on values(888665555,20,'');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//PROJECT
+
+insert into project values('1','ProductX','Bellaire');
+insert into project values('2','Product2','Sugarland');
+insert into project values('3','ProductZ','Houston');
+insert into project values('10','Computerization','Stafford');
+insert into project values('20','Reorganization','Houston');
+insert into project values('30','Newbenefits','Stafford');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//Emp_Dependents
+
+insert into emp_dependents values(333445555,'Alice','Daughter','f');
+insert into emp_dependents values(333445555,'Theodore','Son','m');
+insert into emp_dependents values(333445555,'Joy','Spouse','f');
+insert into emp_dependents values(987654321,'Abner','Spouse','m');
+insert into emp_dependents values(123456789,'Michael','Son','m');
+insert into emp_dependents values(123456789,'Alice','Daughter','f');
+insert into emp_dependents values(123456789,'Elizabeth','Spouse','f');
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////// after inserting values
+
+alter table employee
+add constraint FK_deptnum
+foreign key(deptnum) references department(dnum);
+
+alter table employee
+add constraint FK_dmgrssn
+foreign key(dmgrssn) references employee(ssn);
+
+alter table department
+add constraint FK_mgrssn
+foreign key(dmgrssn) references employee(ssn);
