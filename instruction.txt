@@ -1,8 +1,8 @@
+// To create a new user //
+
 connect system;
 
-create user user_name identified by password;
-grant connect, resource, dba to user_name;
-
-grant unlimited tablespace to user_name;
-
-connect user_name;
+create user username identified by mypassword;
+grant connect, resource, dba to username;
+grant unlimited tablespace to username;
+connect;

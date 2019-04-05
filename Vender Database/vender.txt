@@ -2,30 +2,6 @@
                                                 1st ans:
 -------------------------------------------------------------------------------------------------------	
 
-create table item
-(
-	icode int primary key,
-	idesc varchar(20),
-	unit_price number(8,2),
-	eqq int,
-	rol int,
-	soh int,
-	boq int
-);
-
-create table vender
-(
-	vnum int primary key,
-	vname varchar(30),
-	vaddress varchar(30)
-);
-
-create table section
-(
-	scode int primary key,
-	sname varchar(30)
-);
-
 create table cheque
 (
 	cnum int primary key,
@@ -33,16 +9,10 @@ create table cheque
 	camount int
 );
 
-create table voucher
+create table section
 (
-	vouchnum int primary key,
-	vouchdate date,
-	vennum int,
-	chqnum int,
-	constraint Fk_vennum
-	foreign key(vennum) references vender(vnum),
-	constraint FK_chqnum
-	foreign key(chqnum) references cheque(cnum)
+	scode int primary key,
+	sname varchar(30)
 );
 
 create table indent
@@ -58,6 +28,35 @@ create table indent
 	foreign key(itemcode) references item(icode)
 );
 
+create table vender
+(
+	vnum int primary key,
+	vname varchar(30),
+	vaddress varchar(30)
+);
+
+create table item
+(
+	icode int primary key,
+	idesc varchar(20),
+	unit_price number(8,2),
+	eqq int,
+	rol int,
+	soh int,
+	boq int
+);
+
+create table voucher
+(
+	vouchnum int primary key,
+	vouchdate date,
+	vennum int,
+	chqnum int,
+	constraint Fk_vennum
+	foreign key(vennum) references vender(vnum),
+	constraint FK_chqnum
+	foreign key(chqnum) references cheque(cnum)
+);
 
 create table orders
 (
@@ -80,20 +79,6 @@ create table ordering
 	constraint FK_icode
 	foreign key(itemcode) references item(icode)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ------------------------------------------------------------------------------------------------------

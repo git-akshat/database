@@ -1,0 +1,59 @@
+CREATE TABLE customer(
+  CustomerID int Primary Key,
+  CustomerName varchar(20) NOT NULL,
+  Street varchar(20) NOT NULL,
+  City varchar(15) NOT NULL,
+  State varchar(15) NOT NULL,
+  Email varchar(30) NOT NULL,
+  Password varchar(10) NOT NULL
+);
+
+CREATE TABLE orders (
+  OrderID int Primary Key,
+  OrderDate date NOT NULL,
+  Amount float NOT NULL,
+  CID int NOT NULL,
+  Foreign Key(CID) references customer(CustomerID)
+);
+
+CREATE TABLE category (
+  CategoryID int Primary Key,
+  CategoryName varchar(20) NOT NULL
+);
+
+CREATE TABLE product (
+  ProductID int Primary Key,
+  ProductName varchar(30) NOT NULL,
+  Price float NOT NULL,
+  CatID int NOT NULL,
+  Foreign Key(CatID) references category(CategoryID)
+);
+
+CREATE TABLE orderdetails (
+	OrderStatus varchar(20),
+	Quantity int Not Null,
+  OID int NOT NULL,
+  PID int NOT NULL,
+  Foreign Key(OID) references Orders(OrderID),
+  Foreign Key(PID) references Product(ProductID)
+);
+
+CREATE TABLE suppliers (
+  SupplierID int Primary Key,
+  SupplierName varchar(30) NOT NULL
+);
+
+CREATE TABLE supplies(
+  SID int,
+  ProID int,
+  Primary Key(SID,PROID),
+  Foreign Key(SID) references Suppliers(SupplierID),
+  Foreign Key(ProID) references PRODUCT(ProductID)
+);
+
+CREATE TABLE SupplierLocation (
+  SupID int,
+  Location varchar(30),
+  Primary Key(SupID,Location),
+  Foreign Key(SupID) references Suppliers(SupplierID)
+);

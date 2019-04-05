@@ -1,0 +1,70 @@
+INSERT INTO customer VALUES (1, 'Ram', 'Chandni chowk', 'NewDelhi', 'Delhi', 'ram@gmail.com', 'ram');
+INSERT INTO customer VALUES (2, 'Rita', 'jump street', 'LA', 'USA', 'rita@gmail.com', 'rita');
+INSERT INTO customer VALUES (3, 'Anannya Uberoi', 'Shalimar', 'Delhi', 'Delhi', 'anannya@gmail.com', 'anannya');
+INSERT INTO customer VALUES (4, 'Sarthika', 'Rohini', 'Delhi', 'Delhi', 'sarthika@gmail.com', 'sarthika');
+INSERT INTO customer VALUES (5, 'Katy', 'Albany', 'NY', 'NY', 'katy@gmail.com', 'katy');
+INSERT INTO customer VALUES (6, 'Logan', 'Mumbai', 'Mumbai', 'Maharashtra', 'logan@gmail.com', 'logan');
+
+INSERT INTO orders VALUES (1, '15-APR-2017', 500, 1);
+INSERT INTO orders VALUES (2, '15-APR-2017', 500, 5);
+INSERT INTO orders VALUES (3, '15-APR-2017', 500, 1);
+
+INSERT INTO category VALUES (111, 'Women');
+INSERT INTO category VALUES (112, 'Men');
+INSERT INTO category VALUES (113, 'Kids'); 
+
+INSERT INTO product VALUES (11, 'Top', 500, 111);
+INSERT INTO product VALUES (13, 'Frock', 200, 113);
+INSERT INTO product VALUES (14, 'Trouser', 1000, 112);
+INSERT INTO product VALUES (15, 'Baby Suit', 500, 113);
+INSERT INTO product VALUES (16, 'Baby Suit', 200, 113);
+INSERT INTO product VALUES (17, 'Shirt', 780, 112);
+INSERT INTO product VALUES (18, 'Shirt', 735, 112);
+INSERT INTO product VALUES (19, 'Jeans', 400, 112);
+INSERT INTO product VALUES (20, 'Skirt', 290, 111);
+INSERT INTO product VALUES (21, 'Skirt', 879, 111);
+INSERT INTO product VALUES (22, 'Top', 700, 111);
+INSERT INTO product VALUES (23, 'Top', 250, 111);
+INSERT INTO product VALUES (24, 'Top', 988, 111);
+INSERT INTO product VALUES (25, 'Baby Suit', 788, 113);
+INSERT INTO product VALUES (26, 'Baby Suit', 877, 113);
+INSERT INTO product VALUES (27, 'Baby Suit', 900, 113);
+INSERT INTO product VALUES (28, 'Fancy Clothes', 100, 113);
+INSERT INTO product VALUES (29, 'Fancy Clothes', 800, 113);
+INSERT INTO product VALUES (30, 'Sweater', 1000, 112);
+INSERT INTO product VALUES (31, 'Tuxedo', 2900, 112);
+INSERT INTO product VALUES (32, 'Jeans', 700, 112);
+INSERT INTO product VALUES (33, 'Sweater', 800, 112);
+INSERT INTO product VALUES (34, 'Tee Shirt', 500, 112);
+
+INSERT INTO orderdetails VALUES ('confirmed', 3, 1, 11);
+INSERT INTO orderdetails VALUES ('confirmed', 4, 2, 15);
+INSERT INTO orderdetails VALUES ('confirmed', 1, 3, 11);
+
+INSERT INTO suppliers VALUES (11111, 'Dhanraj Textiles');
+INSERT INTO suppliers VALUES (11112, 'Pricely');
+INSERT INTO suppliers VALUES (11113, 'ABCD Suppliers');
+INSERT INTO suppliers VALUES (11114, 'Mango Biz');
+INSERT INTO suppliers VALUES (11115, 'Lilliput Clothing');
+
+INSERT INTO supplies (SID, ProID) VALUES (11111, 14);
+INSERT INTO supplies (SID, ProID) VALUES (11112, 31);
+INSERT INTO supplies (SID, ProID) VALUES (11113, 32);
+INSERT INTO supplies (SID, ProID) VALUES (11114, 13);
+INSERT INTO supplies (SID, ProID) VALUES (11115, 14);
+INSERT INTO supplies (SID, ProID) VALUES (11111, 20);
+INSERT INTO supplies (SID, ProID) VALUES (11112, 21);
+INSERT INTO supplies (SID, ProID) VALUES (11113, 22);
+INSERT INTO supplies (SID, ProID) VALUES (11114, 23);
+INSERT INTO supplies (SID, ProID) VALUES (11115, 24);
+
+
+INSERT INTO SupplierLocation (SupID, Location) VALUES (11111, 'Delhi');
+INSERT INTO SupplierLocation (SupID, Location) VALUES (11112, 'Maladi');
+INSERT INTO SupplierLocation (SupID, Location) VALUES (11113, 'Juhu');
+INSERT INTO SupplierLocation (SupID, Location) VALUES (11114, 'Green Park');
+INSERT INTO SupplierLocation (SupID, Location) VALUES (11115, 'Bhiwandi');
+
+set linesize 150;
+set pagesize 100;
+

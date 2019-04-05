@@ -1,0 +1,58 @@
+#1. Write a trigger to notify back order quantity with suitable message when product quantity in a category crosses 5.
+
+create or replace trigger max_product
+before insert on product
+for each row
+declare
+cnt number;
+begin
+select count(*) into cnt from product
+where CatID=:NEW.CatID;
+if(cnt>5) then
+raise_application_error(-20009,'MAX Product LIMIT REACHED');
+end if;
+end;
+/
+
+INSERT INTO product VALUES (44, 'Tee Shirt', 500, 112);
+
+#2. Write a trigger to notify back with suitable error message when date of order crosses current date.
+
+create or replace trigger orders_date
+before insert on orders
+for each row
+declare
+	cur date;
+begin
+	select sysdate into cur from dual;
+	if(cur<:NEW.OrderDate) then
+		raise_application_error(-20009,'Incorrect Date! Order Date should be past or a current date.');
+	end if;
+end;
+/
+
+INSERT INTO orders VALUES (4, '10-APR-2020', 500, 1);
+
+#3. Write a Stored procedure to display the details of ITEM which are ordered on specific Order-Date.
+
+create or replace procedure pr_order_date(s date)
+is
+x orders.OrderID%type;
+cursor c is select *
+from orders c
+where c.OrderDate = s;
+begin
+sys.dbms_output.put_line('OrderID          OrderDate');
+for x in c loop
+sys.dbms_output.put_line(x.OrderID||'                 '||x.OrderDate);
+end loop;
+end;
+/
+
+set serveroutput on;
+
+begin
+pr_order_date('15-APR-2017');
+end;
+/
+

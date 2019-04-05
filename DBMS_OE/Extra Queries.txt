@@ -1,0 +1,96 @@
+#1.
+
+SELECT * 
+FROM customer 
+WHERE state = 'Delhi';
+
+#2. 
+
+SELECT * 
+FROM Product 
+WHERE ProductName = 'Top' AND Price>200.0;
+
+#3. 
+
+SELECT ProductName, Price, CategoryName
+FROM PRODUCT, CATEGORY
+WHERE CategoryName = 'Men' AND CategoryID = CatID ;
+
+# 4. Increase the price of each item by 10%.
+
+update product set price=price*1.1;
+
+#5. Add check constraint to price in product table, which should allow only positive values.
+
+alter table product add constraint ck_price
+check(price>0);
+
+insert into product vaues (3, 'Frock', 220, 111);
+
+#6. Display the number of products under each category.
+
+select categoryname, count(*)
+from category C, product P
+Where P.catID = C.CategoryID
+group by C.categoryname
+
+#7. Retrieve Min and Max Order Amount.
+
+	select MAX(Amount), MIN(Amount) from orders
+
+#8. Produce the list of order b/w JAN 2000 to JAN 2019.
+
+	select * from orders where orderdate between '01-JAN-2000' AND '31-JAN-2019'
+
+#9. For all orders in orders table, show their status and quantity
+
+	select * from orders o left outer join orderdetails d on o.orderid=d.oid
+
+#10. For each category c list all the products that belong to c
+
+	select * from category c full outer join product d on c.categoryid=d.catid
+
+#11. Retrieve all the supplier name who supplies at least one product.
+
+select supplierID from suppliers
+intersect
+Select SID from supplies;
+
+
+#12. Retrieve the supplier name who do not supply any product.
+
+select supplierID from suppliers
+minus
+Select SID from supplies;
+
+
+#13. Retrieve the suppliername which are in supplier table and or in supplies table
+
+select supplierID from suppliers
+Union
+Select SID from supplies;
+
+#14. 
+
+INSERT INTO supplies (SID, ProID) VALUES (11115, 30);
+INSERT INTO supplies (SID, ProID) VALUES (11115, 25);
+
+select SupplierName, SupplierID, count(s1.SID) as number_of_products
+from suppliers s, supplies s1 
+where s.SupplierID = s1.SID
+group by SupplierName, SupplierID
+having count(s1.SID) >= all (select count(x.SID)
+							 from supplies x
+							 group by x.SID);
+
+#15. 
+
+select SupplierName, SupplierID, count(s1.SID) as number_of_products
+from suppliers s, supplies s1 
+where s.SupplierID = s1.SID
+group by SupplierName, SupplierID
+having count(s1.SID) <= all (select count(x.SID)
+							 from supplies x
+							 group by x.SID);
+
+INSERT INTO product VALUES (40, 'Sweater', 800, 112);

@@ -1,0 +1,7 @@
+connect system;
+akshat
+create user akshat identified by akshat1;
+grant connect, resource, dba to akshat;
+grant unlimited tablespace to akshat;
+connect akshat;
+akshat1
